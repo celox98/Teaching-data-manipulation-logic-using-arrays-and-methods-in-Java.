@@ -1,24 +1,105 @@
-# Compiled class file
-*.class
+import java.util.Scanner;
 
-# Log file
-*.log
+public class CS1002Lab08 {
 
-# BlueJ files
-*.ctxt
+    public static void main(String[] args) {
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+        Scanner sc = new Scanner(System.in);
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+        // ------------------- Part 1 -------------------
+        System.out.println("Part-1:");
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+        System.out.print("Please enter a size (multiple of 4, at least 4): ");
+        int size = sc.nextInt();
+
+        int[] arr = new int[size];
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(i + " index: ");
+            arr[i] = sc.nextInt();
+        }
+
+        // ------------------- Part 2 -------------------
+        System.out.println("\nPart-2:");
+        double avg = giveAverage(arr);
+        System.out.println("The average of previously created array: " + avg);
+
+        // ------------------- Part 3 -------------------
+        System.out.println("\nPart-3:");
+        printArray(arr);
+
+        // ------------------- Part 4 -------------------
+        System.out.println("\nPart-4:");
+        String[] test_array = {"bcd", "abd", "jude", "bcd", "oiu", "gzw", "oiu"};
+        printDuplicates(test_array);
+
+        // ------------------- Part 5 -------------------
+        System.out.println("\nPart-5:");
+        System.out.print("Original Array: ");
+        printArray(arr);
+
+        double[] merged = merge4(arr);
+
+        System.out.print("Double Array: ");
+        printDoubleArray(merged);
+    }
+
+    // Part 2
+    public static double giveAverage(int[] a) {
+        double sum = 0;
+        for (int i = 0; i < a.length; i++) {
+            sum += a[i];
+        }
+        return sum / a.length;
+    }
+
+    // Part 3
+    public static void printArray(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            System.out.println((i + 1) + ". element: " + a[i]);
+        }
+    }
+
+    // Part 4
+    public static void printDuplicates(String[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i].equals(arr[j])) {
+                    System.out.println("Duplicate element: " + arr[i]);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Part 5
+    public static double[] merge4(int[] a) {
+
+        int newSize = a.length / 4;
+        double[] result = new double[newSize];
+
+        int index = 0;
+        int power = 0;
+
+        for (int i = 0; i < a.length; i++) {
+
+            result[index] += a[i] / Math.pow(10, power);
+
+            power += 2;
+
+            if ((i + 1) % 4 == 0) {
+                index++;
+                power = 0;
+            }
+        }
+
+        return result;
+    }
+
+    public static void printDoubleArray(double[] a) {
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.println();
+    }
+}
